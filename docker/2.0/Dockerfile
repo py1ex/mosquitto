@@ -74,7 +74,7 @@ RUN set -x && \
         binary && \
     addgroup -S -g 1883 mosquitto 2>/dev/null && \
     adduser -S -u 1883 -D -H -h /var/empty -s /sbin/nologin -G mosquitto -g mosquitto mosquitto 2>/dev/null && \
-    mkdir -p /mosquitto/config /mosquitto/data /mosquitto/log && \
+    mkdir -p /mosquitto/config /mosquitto/data /mosquitto/log /mosquitto/plugins && \
     install -d /usr/sbin/ && \
     install -s -m755 /build/mosq/client/mosquitto_pub /usr/bin/mosquitto_pub && \
     install -s -m755 /build/mosq/client/mosquitto_rr /usr/bin/mosquitto_rr && \
@@ -88,6 +88,7 @@ RUN set -x && \
     install -Dm644 /build/lws/LICENSE /usr/share/licenses/libwebsockets/LICENSE && \
     install -Dm644 /build/mosq/epl-v20 /usr/share/licenses/mosquitto/epl-v20 && \
     install -Dm644 /build/mosq/edl-v10 /usr/share/licenses/mosquitto/edl-v10 && \
+    install -m755 /build/mosq/plugins/*/*.so /mosquitto/plugins \
     chown -R mosquitto:mosquitto /mosquitto && \
     apk --no-cache add \
         ca-certificates \
